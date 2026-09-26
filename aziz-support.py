@@ -3,9 +3,15 @@ from flask import Flask, render_template_string
 
 app = Flask(__name__)
 
-# أرقام الهواتف والاتصال
+# بيانات الاتصال وأرقام الهواتف
 KOREK_NUM = "9647519356812"
 ASIA_NUM = "9647716001163"
+
+# روابط الحسابات الرسمية
+INSTAGRAM_URL = "https://www.instagram.com/aziz_s_hussein?stkn=MXNkMjcyZDk5MTNs"
+TIKTOK_URL = "https://www.tiktok.com/@2ztsc?_r=1&_t=ZS-9A3in8B25wK"
+FACEBOOK_URL = "https://www.facebook.com/share/1Lii7NCbn5/"
+YOUTUBE_URL = "https://youtube.com/@aziz.s.hussein?si=m0-WbZmLohcMc9Ug"
 
 HTML_TEMPLATE = """
 <!DOCTYPE html>
@@ -13,443 +19,437 @@ HTML_TEMPLATE = """
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>عزيز ابن الحجي | مركز حل المشاكل الرقمية والأمان</title>
+    <title>عزيز ابن الحجي | بوابة الدعم الفني واسترجاع الحسابات</title>
+    <!-- خط تجوال العصري -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link href="https://fonts.googleapis.com/css2?family=Tajawal:wght@400;600;700;800;900&display=swap" rel="stylesheet">
-    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" rel="stylesheet">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Tajawal:wght@400;500;700;800;900&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
     <style>
         :root {
-            --bg-deep: #05070e;
-            --accent-cyan: #00f2fe;
-            --korek-color: #0284c7;
-            --asia-color: #dc2626;
-            --emerald: #10b981;
-            --gold: #f59e0b;
-            --glass-bg: rgba(13, 19, 33, 0.88);
-            --border-glass: rgba(255, 255, 255, 0.08);
+            --primary: #0284c7;
+            --primary-glow: rgba(2, 132, 199, 0.4);
+            --accent: #38bdf8;
+            --bg-color: #070d18;
+            --card-bg: rgba(15, 23, 42, 0.75);
+            --card-border: rgba(56, 189, 248, 0.15);
             --text-main: #f8fafc;
-            --text-sub: #94a3b8;
+            --text-muted: #94a3b8;
+            --success: #10b981;
+            --whatsapp: #25d366;
         }
 
         * {
+            box-sizing: border-box;
             margin: 0;
             padding: 0;
-            box-sizing: border-box;
             font-family: 'Tajawal', sans-serif;
             -webkit-tap-highlight-color: transparent;
         }
 
         body {
-            background-color: var(--bg-deep);
+            background-color: var(--bg-color);
+            background-image: 
+                radial-gradient(at 0% 0%, rgba(2, 132, 199, 0.18) 0px, transparent 50%),
+                radial-gradient(at 100% 100%, rgba(56, 189, 248, 0.12) 0px, transparent 50%);
+            background-attachment: fixed;
             color: var(--text-main);
             min-height: 100vh;
             display: flex;
             justify-content: center;
             align-items: center;
             padding: 25px 15px;
-            position: relative;
         }
 
-        .bg-grid {
-            position: fixed;
-            top: 0; left: 0; width: 100%; height: 100%;
-            background-image: 
-                linear-gradient(rgba(0, 242, 254, 0.03) 1px, transparent 1px),
-                linear-gradient(90deg, rgba(0, 242, 254, 0.03) 1px, transparent 1px);
-            background-size: 35px 35px;
-            z-index: -1;
-        }
-
-        .hub-card {
+        .main-card {
             width: 100%;
-            max-width: 500px;
-            background: var(--glass-bg);
-            backdrop-filter: blur(25px);
-            -webkit-backdrop-filter: blur(25px);
-            border: 1px solid var(--border-glass);
+            max-width: 580px;
+            background: var(--card-bg);
+            backdrop-filter: blur(16px);
+            -webkit-backdrop-filter: blur(16px);
+            border: 1px solid var(--card-border);
             border-radius: 28px;
-            padding: 35px 22px;
-            box-shadow: 0 25px 50px rgba(0, 0, 0, 0.7);
+            padding: 35px 25px;
+            box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.7);
             position: relative;
-            text-align: center;
+            overflow: hidden;
         }
 
-        .hub-card::before {
+        .main-card::before {
             content: '';
             position: absolute;
-            inset: 0;
-            border-radius: 28px;
-            padding: 1px;
-            background: linear-gradient(135deg, rgba(0, 242, 254, 0.4), transparent, rgba(245, 158, 11, 0.3));
-            -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
-            -webkit-mask-composite: xor;
-            mask-composite: exclude;
-            pointer-events: none;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 4px;
+            background: linear-gradient(90deg, #0284c7, #38bdf8, #10b981);
         }
 
-        .avatar-wrap {
-            width: 95px;
-            height: 95px;
-            margin: 0 auto 14px;
-            position: relative;
+        /* رأس الصفحة */
+        .hero {
+            text-align: center;
+            margin-bottom: 25px;
         }
 
-        .avatar-box {
-            width: 100%;
-            height: 100%;
-            border-radius: 50%;
-            background: #0b1120;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 42px;
-            color: var(--accent-cyan);
-            border: 2px solid rgba(0, 242, 254, 0.4);
-            box-shadow: 0 0 25px rgba(0, 242, 254, 0.25);
-        }
-
-        .live-dot {
-            position: absolute;
-            bottom: 4px;
-            right: 4px;
-            width: 14px;
-            height: 14px;
-            background: #10b981;
-            border: 2px solid #05070e;
-            border-radius: 50%;
-            box-shadow: 0 0 10px #10b981;
-        }
-
-        .name-title {
-            font-size: 1.65rem;
+        /* العنوان العلوي: عزيز ابن الحجي */
+        .brand-top {
+            display: inline-block;
+            font-size: 26px;
             font-weight: 900;
-            margin-bottom: 4px;
-            display: flex;
+            color: #ffffff;
+            text-shadow: 0 0 15px rgba(56, 189, 248, 0.6);
+            letter-spacing: 0.5px;
+            margin-bottom: 12px;
+            padding: 4px 16px;
+            border-radius: 12px;
+            background: rgba(255, 255, 255, 0.03);
+            border: 1px solid rgba(56, 189, 248, 0.2);
+        }
+
+        .hero-badge {
+            display: inline-flex;
             align-items: center;
-            justify-content: center;
             gap: 8px;
-            letter-spacing: -0.5px;
-        }
-
-        .verified-badge {
-            color: #38bdf8;
-            font-size: 1.15rem;
-        }
-
-        .crown-icon {
-            color: var(--gold);
-            font-size: 1.1rem;
-        }
-
-        .tagline {
-            font-size: 0.9rem;
-            color: var(--text-sub);
-            line-height: 1.5;
-            margin-bottom: 22px;
-        }
-
-        .section-label {
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-            font-size: 0.88rem;
-            font-weight: 800;
-            color: #cbd5e1;
-            margin: 20px 0 12px;
-            text-align: right;
-            padding: 0 4px;
-        }
-
-        /* صندوق حل المشاكل */
-        .problem-selector-box {
-            background: rgba(18, 26, 47, 0.65);
-            border: 1px solid rgba(0, 242, 254, 0.15);
-            border-radius: 20px;
-            padding: 16px;
-            margin-bottom: 22px;
-            text-align: right;
-        }
-
-        .problem-grid {
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 10px;
+            background: rgba(16, 185, 129, 0.1);
+            border: 1px solid rgba(16, 185, 129, 0.3);
+            color: var(--success);
+            padding: 5px 14px;
+            border-radius: 50px;
+            font-size: 13px;
+            font-weight: 700;
             margin-bottom: 14px;
         }
 
-        .problem-card {
-            background: rgba(30, 41, 59, 0.45);
+        .pulse-dot {
+            width: 8px;
+            height: 8px;
+            background: var(--success);
+            border-radius: 50%;
+            box-shadow: 0 0 10px var(--success);
+            animation: pulse 2s infinite;
+        }
+
+        @keyframes pulse {
+            0%, 100% { opacity: 1; transform: scale(1); }
+            50% { opacity: 0.4; transform: scale(1.2); }
+        }
+
+        .hero-title {
+            font-size: 23px;
+            font-weight: 800;
+            line-height: 1.35;
+            margin-bottom: 8px;
+        }
+
+        .hero-title span {
+            background: linear-gradient(135deg, #38bdf8, #0284c7);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .hero-sub {
+            color: var(--text-muted);
+            font-size: 14px;
+            line-height: 1.6;
+        }
+
+        /* مميزات الخدمة */
+        .features-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 10px;
+            margin-bottom: 25px;
+        }
+
+        .feature-box {
+            background: rgba(255, 255, 255, 0.03);
             border: 1px solid rgba(255, 255, 255, 0.06);
             border-radius: 14px;
-            padding: 12px 10px;
+            padding: 12px 8px;
             text-align: center;
-            cursor: pointer;
-            transition: all 0.2s ease;
+            transition: all 0.3s ease;
         }
 
-        .problem-card:hover, .problem-card.selected {
-            background: rgba(0, 242, 254, 0.12);
-            border-color: var(--accent-cyan);
-            transform: translateY(-2px);
-        }
-
-        .problem-card i {
-            font-size: 1.4rem;
-            color: var(--accent-cyan);
+        .feature-box i {
+            font-size: 20px;
+            color: var(--accent);
             margin-bottom: 6px;
-            display: block;
         }
 
-        .problem-card.danger i { color: #ef4444; }
-        .problem-card.danger:hover, .problem-card.danger.selected {
-            border-color: #ef4444;
-            background: rgba(239, 68, 68, 0.12);
-        }
-
-        .problem-card span {
-            font-size: 0.82rem;
+        .feature-box p {
+            font-size: 12px;
             font-weight: 700;
-            display: block;
+            color: #e2e8f0;
         }
 
-        .quick-input {
+        /* النموذج */
+        .form-section {
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+        }
+
+        .input-group {
+            display: flex;
+            flex-direction: column;
+            gap: 6px;
+        }
+
+        .input-group label {
+            font-size: 13.5px;
+            font-weight: 700;
+            color: #cbd5e1;
+            display: flex;
+            align-items: center;
+            gap: 6px;
+        }
+
+        .input-group label i {
+            color: var(--accent);
+            font-size: 14px;
+        }
+
+        .custom-input {
             width: 100%;
-            padding: 11px 14px;
-            background: #1e293b;
-            border: 1px solid #334155;
-            border-radius: 10px;
+            background: rgba(10, 16, 30, 0.85);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 12px;
+            padding: 12px 14px;
             color: #fff;
-            font-size: 0.88rem;
+            font-size: 14px;
             outline: none;
-            margin-bottom: 10px;
+            transition: all 0.25s ease;
         }
-        .quick-input:focus { border-color: var(--accent-cyan); }
 
-        .btn-solve-now {
+        .custom-input:focus {
+            border-color: var(--accent);
+            box-shadow: 0 0 12px var(--primary-glow);
+            background: rgba(10, 16, 30, 1);
+        }
+
+        .btn-whatsapp {
             width: 100%;
-            background: linear-gradient(135deg, #059669, #10b981);
+            padding: 14px;
+            margin-top: 5px;
+            background: linear-gradient(135deg, #25d366, #128c7e);
             color: #fff;
             border: none;
-            padding: 13px;
-            border-radius: 10px;
+            border-radius: 14px;
+            font-size: 16px;
             font-weight: 800;
-            font-size: 0.98rem;
             cursor: pointer;
             display: flex;
             align-items: center;
             justify-content: center;
-            gap: 8px;
-            box-shadow: 0 4px 15px rgba(16, 185, 129, 0.25);
-            transition: opacity 0.2s;
+            gap: 10px;
+            box-shadow: 0 10px 20px -5px rgba(37, 211, 102, 0.35);
+            transition: all 0.25s ease;
         }
-        .btn-solve-now:hover { opacity: 0.92; }
 
-        /* خطوط الاتصال السريع */
-        .contact-grid {
+        .btn-whatsapp:active {
+            transform: scale(0.98);
+        }
+
+        /* أزرار الاتصال */
+        .divider {
+            display: flex;
+            align-items: center;
+            text-align: center;
+            margin: 25px 0 15px;
+            color: var(--text-muted);
+            font-size: 12px;
+            font-weight: 600;
+        }
+
+        .divider::before, .divider::after {
+            content: '';
+            flex: 1;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+        }
+
+        .divider:not(:empty)::before { margin-left: .8em; }
+        .divider:not(:empty)::after { margin-right: .8em; }
+
+        .call-buttons {
             display: grid;
             grid-template-columns: 1fr 1fr;
             gap: 10px;
-            margin-bottom: 22px;
         }
 
-        .contact-card {
-            background: rgba(18, 26, 47, 0.6);
-            border: 1px solid rgba(255, 255, 255, 0.05);
-            border-radius: 16px;
-            padding: 12px 10px;
+        .call-btn {
+            padding: 11px;
+            border-radius: 12px;
+            text-decoration: none;
+            color: #fff;
+            font-size: 13px;
+            font-weight: 700;
             display: flex;
-            flex-direction: column;
             align-items: center;
-            gap: 4px;
+            justify-content: center;
+            gap: 8px;
+            border: 1px solid rgba(255, 255, 255, 0.1);
         }
 
-        .contact-card.korek { border-top: 3px solid var(--korek-color); }
-        .contact-card.asia { border-top: 3px solid var(--asia-color); }
+        .call-btn.korek { background: linear-gradient(135deg, #047857, #065f46); }
+        .call-btn.asia { background: linear-gradient(135deg, #be123c, #9f1239); }
 
-        .contact-card .network-name { font-size: 0.88rem; font-weight: 800; }
-        .contact-card .phone-num { font-size: 0.78rem; color: #cbd5e1; font-weight: 700; direction: ltr; }
-
-        .action-row { display: flex; gap: 6px; width: 100%; margin-top: 6px; }
-        .act-btn {
-            flex: 1; padding: 7px 0; border-radius: 8px; font-size: 0.76rem; font-weight: 700;
-            text-decoration: none; color: #fff; display: inline-flex; align-items: center; justify-content: center; gap: 4px;
+        /* حسابات التواصل */
+        .social-row {
+            display: flex;
+            justify-content: center;
+            gap: 12px;
+            margin-top: 15px;
         }
-        .act-call { background: #1e293b; border: 1px solid #334155; }
-        .act-wa { background: #059669; }
 
-        /* الحسابات الرسمية */
-        .links-stack { display: flex; flex-direction: column; gap: 9px; }
-        .link-pill {
-            display: flex; align-items: center; justify-content: space-between;
-            padding: 12px 16px; border-radius: 14px; background: rgba(18, 26, 47, 0.5);
-            border: 1px solid rgba(255, 255, 255, 0.05); color: var(--text-main);
-            text-decoration: none; font-weight: 700; font-size: 0.92rem; transition: all 0.2s ease;
+        .social-pill {
+            width: 44px;
+            height: 44px;
+            border-radius: 12px;
+            background: rgba(255, 255, 255, 0.04);
+            border: 1px solid rgba(255, 255, 255, 0.08);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: #fff;
+            font-size: 18px;
+            text-decoration: none;
+            transition: all 0.25s ease;
         }
-        .link-pill:hover {
-            background: rgba(30, 41, 59, 0.8); border-color: rgba(0, 242, 254, 0.3); transform: translateY(-2px);
-        }
-        .pill-brand { display: flex; align-items: center; gap: 12px; }
-        .pill-brand i { font-size: 1.3rem; width: 22px; text-align: center; }
 
-        .footer-tag { margin-top: 24px; font-size: 0.76rem; color: #64748b; }
+        .social-pill:hover {
+            transform: translateY(-3px);
+            background: rgba(255, 255, 255, 0.12);
+        }
+
+        .social-pill.insta:hover { color: #e1306c; border-color: #e1306c; }
+        .social-pill.tiktok:hover { color: #00f2fe; border-color: #00f2fe; }
+        .social-pill.fb:hover { color: #1877f2; border-color: #1877f2; }
+        .social-pill.yt:hover { color: #ff0000; border-color: #ff0000; }
+
+        .footer-note {
+            text-align: center;
+            margin-top: 20px;
+            font-size: 11.5px;
+            color: var(--text-muted);
+        }
     </style>
 </head>
 <body>
 
-    <div class="bg-grid"></div>
-
-    <div class="hub-card">
-        <!-- البروفايل باسم عزيز ابن الحجي -->
-        <div class="avatar-wrap">
-            <div class="avatar-box"><i class="fa-solid fa-user-shield"></i></div>
-            <div class="live-dot" title="متاح 24 ساعة"></div>
+<div class="main-card">
+    <div class="hero">
+        <!-- الاسم الفخم في الأعلى -->
+        <div class="brand-top">👑 عزيز ابن الحجي</div>
+        <br>
+        <div class="hero-badge">
+            <span class="pulse-dot"></span> استجابة فنية مباشرة
         </div>
+        <h1 class="hero-title">مركز حل المشاكل و<span>استرجاع الحسابات</span></h1>
+        <p class="hero-sub">خدمة موثوقة لمساعدتك في استعادة وتأمين حساباتك المعطلة أو المفقودة بطرق نظامية وآمنة.</p>
+    </div>
 
-        <h1 class="name-title">
-            <i class="fa-solid fa-crown crown-icon"></i>
-            عزيز ابن الحجي
-            <i class="fa-solid fa-circle-check verified-badge"></i>
-        </h1>
-        <p class="tagline">خدمات الدعم الفني والحماية الرقمية | حل مشاكل التعطيل، الابتزاز، واسترجاع الحسابات بسعر مناسب وسرية تامة.</p>
-
-        <!-- قسم حل المشاكل المباشر -->
-        <div class="section-label">
-            <span><i class="fa-solid fa-bolt" style="color: var(--accent-cyan);"></i> شعندك مشكلة بالإنترنت؟ اختر لنحلها لك:</span>
+    <div class="features-grid">
+        <div class="feature-box">
+            <i class="fa-solid fa-lock-open"></i>
+            <p>استرجاع الحسابات</p>
         </div>
-
-        <div class="problem-selector-box">
-            <div class="problem-grid">
-                <div class="problem-card selected" onclick="selectProblem(this, 'فك تعطيل / تبنيد حساب')">
-                    <i class="fa-solid fa-user-slash"></i>
-                    <span>حساب معطل أو متبند</span>
-                </div>
-                <div class="problem-card danger" onclick="selectProblem(this, 'ابتزاز أو تهديد إلكتروني')">
-                    <i class="fa-solid fa-shield-virus"></i>
-                    <span>تهديد أو ابتزاز</span>
-                </div>
-                <div class="problem-card" onclick="selectProblem(this, 'استرجاع حساب مخترق')">
-                    <i class="fa-solid fa-key"></i>
-                    <span>اختراق وسرقة حساب</span>
-                </div>
-                <div class="problem-card" onclick="selectProblem(this, 'مشكلة تقنية أخرى')">
-                    <i class="fa-solid fa-screwdriver-wrench"></i>
-                    <span>مشكلة أخرى</span>
-                </div>
-            </div>
-
-            <input type="text" id="userTag" class="quick-input" placeholder="اسم المستخدم (@username) أو رابط الحساب">
-            
-            <div style="display: flex; gap: 8px; margin-bottom: 10px;">
-                <select id="lineChoice" class="quick-input" style="margin-bottom:0; width:50%;">
-                    <option value="korek">إرسال لخط كورك</option>
-                    <option value="asia">إرسال لخط آسيا</option>
-                </select>
-                <select id="platformChoice" class="quick-input" style="margin-bottom:0; width:50%;">
-                    <option value="انستغرام">انستغرام</option>
-                    <option value="تيك توك">تيك توك</option>
-                    <option value="فيسبوك">فيسبوك</option>
-                    <option value="أخرى">منصة أخرى</option>
-                </select>
-            </div>
-
-            <button type="button" class="btn-solve-now" onclick="sendProblem()">
-                <i class="fa-brands fa-whatsapp fa-lg"></i> إرسال المشكلة لعزيز ابن الحجي
-            </button>
+        <div class="feature-box">
+            <i class="fa-solid fa-key"></i>
+            <p>حل مشاكل 2FA</p>
         </div>
-
-        <!-- أرقام الاتصال المباشر (كورك + آسيا) -->
-        <div class="section-label">
-            <span><i class="fa-solid fa-phone-volume" style="color: var(--accent-cyan);"></i> اتصال وتواصل مباشر:</span>
-        </div>
-
-        <div class="contact-grid">
-            <div class="contact-card korek">
-                <span class="network-name" style="color: var(--korek-color);">قسم كورك</span>
-                <span class="phone-num">+{{ korek_num }}</span>
-                <div class="action-row">
-                    <a href="tel:+{{ korek_num }}" class="act-btn act-call"><i class="fa-solid fa-phone"></i> اتصال</a>
-                    <a href="https://wa.me/{{ korek_num }}" target="_blank" class="act-btn act-wa"><i class="fa-brands fa-whatsapp"></i> واتساب</a>
-                </div>
-            </div>
-
-            <div class="contact-card asia">
-                <span class="network-name" style="color: var(--asia-color);">قسم آسيا</span>
-                <span class="phone-num">+{{ asia_num }}</span>
-                <div class="action-row">
-                    <a href="tel:+{{ asia_num }}" class="act-btn act-call"><i class="fa-solid fa-phone"></i> اتصال</a>
-                    <a href="https://wa.me/{{ asia_num }}" target="_blank" class="act-btn act-wa"><i class="fa-brands fa-whatsapp"></i> واتساب</a>
-                </div>
-            </div>
-        </div>
-
-        <!-- الحسابات الرسمية -->
-        <div class="section-label">
-            <span><i class="fa-solid fa-globe" style="color: var(--accent-cyan);"></i> حساباتي الرسمية:</span>
-        </div>
-
-        <div class="links-stack">
-            <a href="https://www.instagram.com/aziz_s_hussein?stkn=MXNkMjcyZDk5MTNs" target="_blank" class="link-pill">
-                <div class="pill-brand">
-                    <i class="fa-brands fa-instagram" style="color: #e1306c;"></i>
-                    <span>Instagram | إنستغرام</span>
-                </div>
-                <i class="fa-solid fa-chevron-left" style="font-size:0.8rem; color:#64748b;"></i>
-            </a>
-
-            <a href="https://www.tiktok.com/@2ztsc?_r=1&_t=ZS-9A3in8B25wK" target="_blank" class="link-pill">
-                <div class="pill-brand">
-                    <i class="fa-brands fa-tiktok" style="color: #00f2fe;"></i>
-                    <span>TikTok | تيك توك</span>
-                </div>
-                <i class="fa-solid fa-chevron-left" style="font-size:0.8rem; color:#64748b;"></i>
-            </a>
-
-            <a href="https://youtube.com/@aziz.s.hussein?si=m0-WbZmLohcMc9Ug" target="_blank" class="link-pill">
-                <div class="pill-brand">
-                    <i class="fa-brands fa-youtube" style="color: #ff0000;"></i>
-                    <span>YouTube | يوتيوب</span>
-                </div>
-                <i class="fa-solid fa-chevron-left" style="font-size:0.8rem; color:#64748b;"></i>
-            </a>
-
-            <a href="https://www.facebook.com/share/1Lii7NCbn5/" target="_blank" class="link-pill">
-                <div class="pill-brand">
-                    <i class="fa-brands fa-facebook" style="color: #1877f2;"></i>
-                    <span>Facebook | فيسبوك</span>
-                </div>
-                <i class="fa-solid fa-chevron-left" style="font-size:0.8rem; color:#64748b;"></i>
-            </a>
-        </div>
-
-        <div class="footer-tag">
-            &copy; عزيز ابن الحجي | الموقع الرسمي الدائم
+        <div class="feature-box">
+            <i class="fa-solid fa-shield-virus"></i>
+            <p>تأمين الحماية</p>
         </div>
     </div>
 
+    <form class="form-section" onsubmit="sendWhatsApp(event)">
+        <div class="input-group">
+            <label><i class="fa-solid fa-layer-group"></i> نوع المنصة / التطبيق</label>
+            <select id="platform" class="custom-input" required>
+                <option value="Instagram">إنستغرام (Instagram)</option>
+                <option value="Facebook">فيسبوك (Facebook)</option>
+                <option value="TikTok">تيك توك (TikTok)</option>
+                <option value="Snapchat">سناب شات (Snapchat)</option>
+                <option value="Telegram">تيليجرام (Telegram)</option>
+                <option value="Gmail">جوجل / جيميل (Gmail)</option>
+            </select>
+        </div>
+
+        <div class="input-group">
+            <label><i class="fa-solid fa-circle-exclamation"></i> طبيعة المشكلة</label>
+            <select id="issue" class="custom-input" required>
+                <option value="الحساب مخترق وتم تغيير معلوماته">الحساب مخترق وتم تغيير معلوماته</option>
+                <option value="الحساب مقفل أو معطل احترازياً">الحساب مقفل أو معطل احترازياً</option>
+                <option value="مشكلة في رمز التحقق الثنائي (2FA)">مشكلة في رمز التحقق الثنائي (2FA)</option>
+                <option value="فقدان البريد أو رقم الهاتف المسجل">فقدان البريد أو رقم الهاتف المسجل</option>
+            </select>
+        </div>
+
+        <div class="input-group">
+            <label><i class="fa-solid fa-at"></i> اسم المستخدم أو الرابط</label>
+            <input type="text" id="username" class="custom-input" placeholder="مثال: @username أو الرابط" required>
+        </div>
+
+        <div class="input-group">
+            <label><i class="fa-solid fa-file-lines"></i> تفاصيل أو ملاحظات إضافية</label>
+            <textarea id="details" class="custom-input" rows="2" placeholder="اكتب باختصار متى ظهرت المشكلة وأي بيانات قد تساعد..."></textarea>
+        </div>
+
+        <button type="submit" class="btn-whatsapp">
+            <i class="fa-brands fa-whatsapp"></i> إرسال الطلب للمراجعة والحل
+        </button>
+    </form>
+
+    <div class="divider">الاتصال المباشر والدعم</div>
+
+    <div class="call-buttons">
+        <a href="tel:{{ korek }}" class="call-btn korek">
+            <i class="fa-solid fa-phone"></i> كورك: {{ korek }}
+        </a>
+        <a href="tel:{{ asia }}" class="call-btn asia">
+            <i class="fa-solid fa-phone"></i> آسيا: {{ asia }}
+        </a>
+    </div>
+
+    <div class="divider">الحسابات والمنصات الرسمية</div>
+
+    <div class="social-row">
+        <a href="{{ insta }}" target="_blank" class="social-pill insta" title="Instagram">
+            <i class="fa-brands fa-instagram"></i>
+        </a>
+        <a href="{{ tiktok }}" target="_blank" class="social-pill tiktok" title="TikTok">
+            <i class="fa-brands fa-tiktok"></i>
+        </a>
+        <a href="{{ fb }}" target="_blank" class="social-pill fb" title="Facebook">
+            <i class="fa-brands fa-facebook-f"></i>
+        </a>
+        <a href="{{ yt }}" target="_blank" class="social-pill yt" title="YouTube">
+            <i class="fa-brands fa-youtube"></i>
+        </a>
+    </div>
+
+    <p class="footer-note">جميع العمليات تخضع للسياسات الأمنية والمعايير الفنية المعتمدة للمنصات.</p>
+</div>
+
 <script>
-    let currentProblem = 'فك تعطيل / تبنيد حساب';
+function sendWhatsApp(e) {
+    e.preventDefault();
+    const platform = document.getElementById('platform').value;
+    const issue = document.getElementById('issue').value;
+    const username = document.getElementById('username').value;
+    const details = document.getElementById('details').value;
 
-    function selectProblem(el, problemName) {
-        document.querySelectorAll('.problem-card').forEach(c => c.classList.remove('selected'));
-        el.classList.add('selected');
-        currentProblem = problemName;
-    }
+    const message = `مرحباً، أود تقديم طلب استرجاع / حل مشكلة تقنية:%0A%0A` +
+                    `👑 *المسؤول:* عزيز ابن الحجي%0A` +
+                    `🔹 *المنصة:* ${platform}%0A` +
+                    `⚠️ *نوع المشكلة:* ${issue}%0A` +
+                    `👤 *الحساب:* ${username}%0A` +
+                    `📝 *ملاحظات:* ${details ? details : 'لا توجد'}`;
 
-    function sendProblem() {
-        const userTag = document.getElementById('userTag').value.trim() || 'غير محدد';
-        const platform = document.getElementById('platformChoice').value;
-        const line = document.getElementById('lineChoice').value;
-
-        const targetPhone = (line === 'korek') ? '{{ korek_num }}' : '{{ asia_num }}';
-
-        const message = `السلام عليكم عزيز ابن الحجي، لدي مشكلة وأحتاج حلاً لها بسعر مناسب:
-- نوع المشكلة: ${currentProblem}
-- المنصة: ${platform}
-- الحساب المعني: ${userTag}`;
-
-        const url = `https://wa.me/${targetPhone}?text=${encodeURIComponent(message)}`;
-        window.open(url, '_blank');
-    }
+    const phone = "{{ korek }}";
+    window.open(`https://wa.me/${phone}?text=${message}`, '_blank');
+}
 </script>
 
 </body>
@@ -460,16 +460,14 @@ HTML_TEMPLATE = """
 def home():
     return render_template_string(
         HTML_TEMPLATE,
-        korek_num=KOREK_NUM,
-        asia_num=ASIA_NUM
+        korek=KOREK_NUM,
+        asia=ASIA_NUM,
+        insta=INSTAGRAM_URL,
+        tiktok=TIKTOK_URL,
+        fb=FACEBOOK_URL,
+        yt=YOUTUBE_URL
     )
 
 if __name__ == '__main__':
-    # تشغيل إنتاجي دائم ومستقر
     port = int(os.environ.get("PORT", 5000))
-    try:
-        from waitress import serve
-        print(f"الموقع يعمل بشكل دائم ومستقر على المنفذ: {port}")
-        serve(app, host='0.0.0.0', port=port)
-    except ImportError:
-        app.run(host='0.0.0.0', port=port, debug=False)
+    app.run(host='0.0.0.0', port=port)
